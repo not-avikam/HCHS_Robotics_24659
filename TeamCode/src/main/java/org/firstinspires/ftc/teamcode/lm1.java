@@ -43,6 +43,29 @@ public class lm1 extends LinearOpMode {
     @Override
     public void runOpMode() {
 
+        //hang1 = hardwareMap.get(DcMotorEx.class, "hang1");
+        //hang2 = hardwareMap.get(DcMotorEx.class, "hang2");
+        //hang1.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
+        //hang2.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
+        //hang1.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+        //hang2.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+/*
+        if (gamepad1.dpad_up) {
+            hang1.setPower(1);
+            hang2.setPower(1);
+        } else if (gamepad1.dpad_down) {
+            hang1.setPower(-1);
+            hang2.setPower(-1);
+        } else {
+            hang1.setPower(0);
+            hang2.setPower(0);
+        }
+
+ */
+
+
+
+
         int relativeLayoutId = hardwareMap.appContext.getResources().getIdentifier("RelativeLayout", "id", hardwareMap.appContext.getPackageName());
         relativeLayout = ((Activity) hardwareMap.appContext).findViewById(relativeLayoutId);
 
@@ -55,8 +78,6 @@ public class lm1 extends LinearOpMode {
         intake = hardwareMap.get(CRServo.class, "intake");
         intakeRotate = hardwareMap.get(DcMotorEx.class, "intakeRotate");
         imu = hardwareMap.get(IMU.class, "imu");
-        //hang1 = hardwareMap.get(DcMotorEx.class, "hang1");
-        //hang2 = hardwareMap.get(DcMotorEx.class, "hang2");
         wrist = hardwareMap.get(Servo.class, "wrist");
         otos = hardwareMap.get(SparkFunOTOS.class, "avikams_son");
 
@@ -65,16 +86,12 @@ public class lm1 extends LinearOpMode {
         rightBackDrive.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
         rightFrontDrive.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
         intakeRotate.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        //hang1.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
-        //hang2.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
 
         leftFrontDrive.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
         leftBackDrive.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
         rightBackDrive.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
         rightFrontDrive.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
         intakeRotate.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
-        //hang1.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
-        //hang2.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
 
         //follower.startTeleopDrive();
 
@@ -155,16 +172,6 @@ public class lm1 extends LinearOpMode {
             leftBackDrive.setPower(leftBackPower);
             rightBackDrive.setPower(rightBackPower);
             intakeRotate.setPower(rotatePower);
-
-            /*
-            if (gamepad1.dpad_up) {
-                hang1.setPower(1);
-                hang2.setPower(1);
-            } else if (gamepad1.dpad_down) {
-                hang1.setPower(-1);
-                hang2.setPower(-1);
-            }
-            */
 
             //Servos
             if (gamepad1.dpad_right) {
