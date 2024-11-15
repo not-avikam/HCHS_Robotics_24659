@@ -27,17 +27,17 @@ public class lm1 extends LinearOpMode {
 
     // Declare OpMode members
     private final ElapsedTime runtime = new ElapsedTime();
-    private DcMotorEx leftFrontDrive = null;
-    private DcMotorEx leftBackDrive = null;
-    private DcMotorEx rightFrontDrive = null;
-    private DcMotorEx rightBackDrive = null;
+    private DcMotor leftFrontDrive = null;
+    private DcMotor leftBackDrive = null;
+    private DcMotor rightFrontDrive = null;
+    private DcMotor rightBackDrive = null;
 
-    private DcMotorEx hang1 = null;
-    private DcMotorEx hang2 = null;
-    private DcMotorEx intakeRotate = null;
+    //private DcMotorEx hang1 = null;
+    //private DcMotorEx hang2 = null;
+    private DcMotor intakeRotate = null;
     private CRServo intake = null;
     private Servo wrist = null;
-    private SparkFunOTOS otos = null;
+    //private SparkFunOTOS otos = null;
     private Follower follower;
 
     @Override
@@ -71,27 +71,27 @@ public class lm1 extends LinearOpMode {
 
         // Initialize the hardware.
         //The strings used here (in green) must match the robot configuration on the Driver Hub.
-        leftFrontDrive  = hardwareMap.get(DcMotorEx.class, "leftFront");
-        leftBackDrive  = hardwareMap.get(DcMotorEx.class, "leftRear");
-        rightFrontDrive = hardwareMap.get(DcMotorEx.class, "rightFront");
-        rightBackDrive = hardwareMap.get(DcMotorEx.class, "rightRear");
+        leftFrontDrive  = hardwareMap.get(DcMotor.class, "leftFront");
+        leftBackDrive  = hardwareMap.get(DcMotor.class, "leftRear");
+        rightFrontDrive = hardwareMap.get(DcMotor.class, "rightFront");
+        rightBackDrive = hardwareMap.get(DcMotor.class, "rightRear");
         intake = hardwareMap.get(CRServo.class, "intake");
-        intakeRotate = hardwareMap.get(DcMotorEx.class, "intakeRotate");
+        intakeRotate = hardwareMap.get(DcMotor.class, "intakeRotate");
         imu = hardwareMap.get(IMU.class, "imu");
         wrist = hardwareMap.get(Servo.class, "wrist");
-        otos = hardwareMap.get(SparkFunOTOS.class, "avikams_son");
+        //otos = hardwareMap.get(SparkFunOTOS.class, "avikams_son");
 
-        leftFrontDrive.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
-        leftBackDrive.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
-        rightBackDrive.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
-        rightFrontDrive.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
+        leftFrontDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        leftBackDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        rightBackDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        rightFrontDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         intakeRotate.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-        leftFrontDrive.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
-        leftBackDrive.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
-        rightBackDrive.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
-        rightFrontDrive.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
-        intakeRotate.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+        leftFrontDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        leftBackDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightBackDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightFrontDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        intakeRotate.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
         //follower.startTeleopDrive();
 
@@ -109,6 +109,7 @@ public class lm1 extends LinearOpMode {
         runtime.reset();
 
         while (opModeIsActive()) {
+
 
             System.out.println("Credits: Design~Alexander Lorenzo; Code~Avikam Bali; Hardware: Dane Bluhm; and the beautiful members of 24659");
 
