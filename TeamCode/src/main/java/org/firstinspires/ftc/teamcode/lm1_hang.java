@@ -1,5 +1,5 @@
 package org.firstinspires.ftc.teamcode;
-//use if hang starts working
+//use if Dane gets hang working
 //import statements
 
 import android.app.Activity;
