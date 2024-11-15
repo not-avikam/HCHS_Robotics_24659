@@ -110,7 +110,6 @@ public class lm1 extends LinearOpMode {
 
         while (opModeIsActive()) {
 
-
             System.out.println("Credits: Design~Alexander Lorenzo; Code~Avikam Bali; Hardware: Dane Bluhm; and the beautiful members of 24659");
 
             //Initialize
@@ -147,7 +146,7 @@ public class lm1 extends LinearOpMode {
             double rightFrontPower = axial - lateral - yaw;
             double leftBackPower   = axial + lateral + yaw;
             double rightBackPower  = axial + lateral - yaw;
-            double rotatePower = rotateIn - rotateOut;
+            double rotatePower = rotateIn + rotateOut;
 
             /*Normalize the values so no wheel power exceeds 100%
             This ensures that the robot maintains the desired motion.*/
