@@ -197,6 +197,7 @@ public class lm1 extends LinearOpMode {
 
             //Telemetry
             telemetry.addLine("Are you sure the robot was flat on the ground during initialization? If not, reinitialize");
+            telemetry.addLine("Let's pray this works");
             telemetry.addData("Status", "Run Time: " + runtime.toString());
             telemetry.addData("Yaw (Z)", "%.2f Deg. (Heading)", orientation.getYaw(AngleUnit.DEGREES));
             telemetry.addData("Pitch (X)", "%.2f Deg.", orientation.getPitch(AngleUnit.DEGREES));
