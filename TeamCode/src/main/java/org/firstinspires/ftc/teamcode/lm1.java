@@ -184,8 +184,11 @@ public class lm1 extends LinearOpMode {
 
             if (gamepad1.a) {
                 wrist.setPosition(.5);
-            } else if (gamepad1.b) {
-                wrist.setPosition(0);
+            } else {
+                if (gamepad1.b) {
+                    wrist.setPosition(0);
+                }
+
             }
 
             //IMU orientation
