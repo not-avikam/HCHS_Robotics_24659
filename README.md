@@ -25,7 +25,7 @@ Head of Finance: Eric Salazar
 
 Rhianna Jaellyn Camiling
 
-NZUBECHUKWU "Nsolve" CHUKUMA
+NZUBECHUKWU "Nsolve" CHUKWUMA
 
 
 
