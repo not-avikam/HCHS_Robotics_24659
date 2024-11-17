@@ -27,14 +27,14 @@ public class lm1 extends LinearOpMode {
 
     // Declare OpMode members
     private final ElapsedTime runtime = new ElapsedTime();
-    private DcMotor leftFrontDrive = null;
-    private DcMotor leftBackDrive = null;
-    private DcMotor rightFrontDrive = null;
-    private DcMotor rightBackDrive = null;
+    private DcMotorEx leftFrontDrive = null;
+    private DcMotorEx leftBackDrive = null;
+    private DcMotorEx rightFrontDrive = null;
+    private DcMotorEx rightBackDrive = null;
 
     //private DcMotorEx hang1 = null;
     //private DcMotorEx hang2 = null;
-    private DcMotor intakeRotate = null;
+    private DcMotorEx intakeRotate = null;
     private CRServo intake = null;
     private Servo wrist = null;
     //private SparkFunOTOS otos = null;
@@ -64,39 +64,31 @@ public class lm1 extends LinearOpMode {
  */
 
 
-
-
         int relativeLayoutId = hardwareMap.appContext.getResources().getIdentifier("RelativeLayout", "id", hardwareMap.appContext.getPackageName());
         relativeLayout = ((Activity) hardwareMap.appContext).findViewById(relativeLayoutId);
 
         // Initialize the hardware.
         //The strings used here (in green) must match the robot configuration on the Driver Hub.
-        leftFrontDrive  = hardwareMap.get(DcMotor.class, "leftFront");
-        leftBackDrive  = hardwareMap.get(DcMotor.class, "leftRear");
-        rightFrontDrive = hardwareMap.get(DcMotor.class, "rightFront");
-        rightBackDrive = hardwareMap.get(DcMotor.class, "rightRear");
+        leftFrontDrive = hardwareMap.get(DcMotorEx.class, "leftFront");
+        leftBackDrive = hardwareMap.get(DcMotorEx.class, "leftRear");
+        rightFrontDrive = hardwareMap.get(DcMotorEx.class, "rightFront");
+        rightBackDrive = hardwareMap.get(DcMotorEx.class, "rightRear");
         intake = hardwareMap.get(CRServo.class, "intake");
-        intakeRotate = hardwareMap.get(DcMotor.class, "intakeRotate");
+        intakeRotate = hardwareMap.get(DcMotorEx.class, "intakeRotate");
         imu = hardwareMap.get(IMU.class, "imu");
         wrist = hardwareMap.get(Servo.class, "wrist");
         //otos = hardwareMap.get(SparkFunOTOS.class, "avikams_son");
 
-        leftFrontDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        leftBackDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        rightBackDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        rightFrontDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        intakeRotate.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-
-        leftFrontDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        leftBackDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        rightBackDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        rightFrontDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        intakeRotate.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        leftFrontDrive.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
+        leftBackDrive.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
+        rightBackDrive.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
+        rightFrontDrive.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
+        intakeRotate.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
 
         //follower.startTeleopDrive();
 
         RevHubOrientationOnRobot.LogoFacingDirection logoDirection = RevHubOrientationOnRobot.LogoFacingDirection.RIGHT;
-        RevHubOrientationOnRobot.UsbFacingDirection  usbDirection  = RevHubOrientationOnRobot.UsbFacingDirection.UP;
+        RevHubOrientationOnRobot.UsbFacingDirection usbDirection = RevHubOrientationOnRobot.UsbFacingDirection.UP;
 
         RevHubOrientationOnRobot orientationOnRobot = new RevHubOrientationOnRobot(logoDirection, usbDirection);
 
@@ -104,13 +96,12 @@ public class lm1 extends LinearOpMode {
 
         // Wait for the game to start (driver presses START)
         telemetry.addData("Status", "Initialized");
+        telemetry.update();
 
         waitForStart();
         runtime.reset();
 
         while (opModeIsActive()) {
-
-            System.out.println("Credits: Design~Alexander Lorenzo; Code~Avikam Bali; Hardware: Dane Bluhm; and the beautiful members of 24659");
 
             //Initialize
 
@@ -132,9 +123,9 @@ public class lm1 extends LinearOpMode {
 
             // POV Mode uses left joystick to go forward & strafe, and right joystick to rotate.
 
-            double axial   = -gamepad1.left_stick_y;  // Note: pushing stick forward gives negative value
-            double lateral =  gamepad1.left_stick_x;
-            double yaw     =  gamepad1.right_stick_x;
+            double axial = -gamepad1.left_stick_y;  // Note: pushing stick forward gives negative value
+            double lateral = gamepad1.left_stick_x;
+            double yaw = gamepad1.right_stick_x;
             double rotateIn = gamepad1.right_trigger;
             double rotateOut = -gamepad1.left_trigger;
 
@@ -142,10 +133,10 @@ public class lm1 extends LinearOpMode {
             //Set up a variable for each motor to save the power level for telemetry.
 
 
-            double leftFrontPower  = axial - lateral + yaw;
+            double leftFrontPower = axial - lateral + yaw;
             double rightFrontPower = axial - lateral - yaw;
-            double leftBackPower   = axial + lateral + yaw;
-            double rightBackPower  = axial + lateral - yaw;
+            double leftBackPower = axial + lateral + yaw;
+            double rightBackPower = axial + lateral - yaw;
             double rotatePower = rotateIn + rotateOut;
 
             /*Normalize the values so no wheel power exceeds 100%
@@ -157,10 +148,10 @@ public class lm1 extends LinearOpMode {
             max = Math.max(max, Math.abs(rotatePower));
 
             if (max > 1.0) {
-                leftFrontPower  /= max;
+                leftFrontPower /= max;
                 rightFrontPower /= max;
-                leftBackPower   /= max;
-                rightBackPower  /= max;
+                leftBackPower /= max;
+                rightBackPower /= max;
                 rotatePower /= max;
             }
 
@@ -184,12 +175,9 @@ public class lm1 extends LinearOpMode {
 
             if (gamepad1.a) {
                 wrist.setPosition(.5);
-            } else {
-                if (gamepad1.b) {
+            } else if (gamepad1.b) {
                     wrist.setPosition(0);
                 }
-
-            }
 
             //IMU orientation
 
